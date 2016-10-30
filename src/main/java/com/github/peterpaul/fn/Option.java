@@ -5,7 +5,7 @@ import com.github.peterpaul.fn.reciters.OptionReciter;
 
 import java.util.Objects;
 
-public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
+public abstract class Option<T> implements Recitable<T> {
     private static final None NONE = new None();
 
     public static <T> Option<T> of(T item) {
@@ -24,6 +24,10 @@ public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
         return (Option<T>) NONE;
     }
 
+    public T get() {
+        throw new NullPointerException();
+    }
+
     public T or(T defaultValue) {
         return defaultValue;
     }
@@ -40,7 +44,6 @@ public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
         throw e.get();
     }
 
-    @Override
     public <R> Option<R> map(Function<T, R> mapper) {
         return Option.none();
     }
@@ -154,11 +157,6 @@ public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
     }
 
     private static final class None<T> extends Option<T> {
-        @Override
-        public T get() {
-            throw new NullPointerException();
-        }
-
         @Override
         public String toString() {
             return "none";
