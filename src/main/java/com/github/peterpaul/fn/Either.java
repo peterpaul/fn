@@ -46,7 +46,6 @@ public abstract class Either<L, R> {
     @Nonnull
     public abstract <S> S map(@Nonnull Function<L, S> fromLeft, @Nonnull Function<R, S> fromRight);
 
-    @Nonnull
     public abstract void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right);
 
     public static final class Left<L, R> extends Either<L, R> {
@@ -62,7 +61,6 @@ public abstract class Either<L, R> {
             return fromLeft.apply(left);
         }
 
-        @Nonnull
         @Override
         public void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right) {
             left.consume(this.left);
@@ -92,6 +90,7 @@ public abstract class Either<L, R> {
         }
 
         @Override
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         public boolean equals(Object o) {
             return Equals.equals(this, o, new Equals.EqualsChecker<Left<L, R>>() {
                 @Override
@@ -120,7 +119,6 @@ public abstract class Either<L, R> {
             return fromRight.apply(right);
         }
 
-        @Nonnull
         @Override
         public void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right) {
             right.consume(this.right);
@@ -150,6 +148,7 @@ public abstract class Either<L, R> {
         }
 
         @Override
+        @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
         public boolean equals(Object o) {
             return Equals.equals(this, o, new Equals.EqualsChecker<Right<L, R>>() {
                 @Override
