@@ -39,17 +39,32 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Lazy
     public <R> Stream<R> map(Function<T, R> mapper) {
-        return new Stream(new MappedRecitable(stream, mapper));
+        return new Stream<>(new MappedRecitable<>(stream, mapper));
     }
 
     @Lazy
     public <R> Stream<R> flatMap(Function<T, Recitable<R>> mapper) {
-        return new Stream(new FlatmappedRecitable(stream, mapper));
+        return new Stream<R>(new FlatmappedRecitable(stream, mapper));
     }
 
     @Lazy
     public Stream<T> filter(Predicate<T> filter) {
         return new Stream<>(new FilteredRecitable<>(stream, filter));
+    }
+
+    @Lazy
+    public Stream<T> peek(Consumer<T> consumer) {
+        return new Stream<>(new PeekRecitable<>(stream, consumer));
+    }
+
+    @Lazy
+    public Stream<T> drop(int n) {
+        return new Stream<>(new DropRecitable<>(stream, n));
+    }
+
+    @Lazy
+    public Stream<T> take(int n) {
+        return new Stream<>(new TakeRecitable<>(stream, n));
     }
 
     @Eager

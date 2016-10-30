@@ -53,6 +53,10 @@ public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
         return Option.none();
     }
 
+    public Option<T> peek(Consumer<T> consumer) {
+        return this;
+    }
+
     public boolean isPresent() {
         return false;
     }
@@ -112,6 +116,12 @@ public abstract class Option<T> extends Supplier<T> implements Recitable<T> {
             return predicate.apply(value)
                     ? this
                     : Option.<T>none();
+        }
+
+        @Override
+        public Option<T> peek(Consumer<T> consumer) {
+            consumer.consume(value);
+            return this;
         }
 
         @Override
