@@ -27,8 +27,15 @@ public final class Pair<L, R> {
         return right;
     }
 
+	@Nonnull
+	public <T> T map(@Nonnull BiFunction<L, R, T> fun) {
+		return fun.apply(left, right);
+	}
+	
     @Override
     public String toString() {
         return "pair(" + left + ", " + right + ')';
     }
+	
+	// TODO add equals and hashcode
 }
