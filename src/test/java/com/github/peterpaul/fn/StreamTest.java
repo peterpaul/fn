@@ -1,6 +1,7 @@
 package com.github.peterpaul.fn;
 
 import com.github.peterpaul.fn.recitables.IterableRecitable;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -85,5 +86,37 @@ public class StreamTest {
                     }
                 });
         assertThat(actual, is(equalTo(15)));
+    }
+
+    @Test
+    public void testTake5() {
+        ArrayList<Integer> actual = Stream.stream(1, 2, 3, 4, 5, 6, 7)
+                .take(5)
+                .to(new ArrayList<Integer>());
+        assertThat(actual, contains(1, 2, 3, 4, 5));
+    }
+
+    @Test
+    public void testTake5From3() {
+        ArrayList<Integer> actual = Stream.stream(1, 2, 3)
+                .take(5)
+                .to(new ArrayList<Integer>());
+        assertThat(actual, contains(1, 2, 3));
+    }
+
+    @Test
+    public void testDrop5() {
+        ArrayList<Integer> actual = Stream.stream(1, 2, 3, 4, 5, 6, 7)
+                .drop(5)
+                .to(new ArrayList<Integer>());
+        assertThat(actual, contains(6, 7));
+    }
+
+    @Test
+    public void testDrop5From3() {
+        ArrayList<Integer> actual = Stream.stream(1, 2, 3)
+                .drop(5)
+                .to(new ArrayList<Integer>());
+        assertThat(actual, is(Matchers.<Integer>empty()));
     }
 }
