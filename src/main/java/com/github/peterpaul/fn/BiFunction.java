@@ -1,12 +1,17 @@
 package com.github.peterpaul.fn;
 
-public abstract class BiFunction<T, S, R> {
-    public abstract R apply(T t, S s);
+import javax.annotation.Nonnull;
 
-    public Function<S, R> $(final T t) {
+public abstract class BiFunction<T, S, R> {
+    @Nonnull
+    public abstract R apply(@Nonnull T t, @Nonnull S s);
+
+    @Nonnull
+    public Function<S, R> $(@Nonnull final T t) {
         return new Function<S, R>() {
+            @Nonnull
             @Override
-            public R apply(S s) {
+            public R apply(@Nonnull S s) {
                 return BiFunction.this.apply(t, s);
             }
         };

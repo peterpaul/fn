@@ -1,12 +1,17 @@
 package com.github.peterpaul.fn;
 
-public abstract class Function<T, R> {
-    public abstract R apply(T input);
+import javax.annotation.Nonnull;
 
-    public <S> Function<T, S> $(final Function<R, S> f) {
+public abstract class Function<T, R> {
+    @Nonnull
+    public abstract R apply(@Nonnull T input);
+
+    @Nonnull
+    public <S> Function<T, S> $(@Nonnull final Function<R, S> f) {
         return new Function<T, S>() {
+            @Nonnull
             @Override
-            public S apply(T input) {
+            public S apply(@Nonnull T input) {
                 return f.apply(Function.this.apply(input));
             }
         };

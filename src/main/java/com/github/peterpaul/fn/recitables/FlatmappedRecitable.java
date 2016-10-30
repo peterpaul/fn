@@ -5,17 +5,20 @@ import com.github.peterpaul.fn.Recitable;
 import com.github.peterpaul.fn.Reciter;
 import com.github.peterpaul.fn.reciters.FlatmappedReciter;
 
-public class FlatmappedRecitable<T, R> implements Recitable<T> {
+import javax.annotation.Nonnull;
+
+public class FlatmappedRecitable<T, R> implements Recitable<R> {
     private final Recitable<T> in;
     private final Function<T, Recitable<R>> mapper;
 
-    public FlatmappedRecitable(Recitable<T> in, Function<T, Recitable<R>> mapper) {
+    public FlatmappedRecitable(@Nonnull Recitable<T> in, @Nonnull Function<T, Recitable<R>> mapper) {
         this.in = in;
         this.mapper = mapper;
     }
 
+    @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return new FlatmappedReciter(in.recite(), mapper);
+    public Reciter<R> recite() {
+        return new FlatmappedReciter<>(in.recite(), mapper);
     }
 }

@@ -1,16 +1,21 @@
 package com.github.peterpaul.fn.equals;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+
 public abstract class Equals {
-    public static <T> boolean equals(T self, Object o, EqualsChecker<T> equalsChecker) {
+    @SuppressWarnings("unchecked")
+    public static <T> boolean equals(@Nonnull T self, @CheckForNull Object o, @Nonnull EqualsChecker<T> equalsChecker) {
         if (self == o) {
             return true;
         }
-        return self.getClass().isAssignableFrom(o.getClass())
-                ? equalsChecker.isEqualTo((T) o)
-                : false;
+        if (o == null) {
+            return false;
+        }
+        return self.getClass().isAssignableFrom(o.getClass()) && equalsChecker.isEqualTo((T) o);
     }
 
     public interface EqualsChecker<T> {
-        boolean isEqualTo(T other);
+        boolean isEqualTo(@Nonnull T other);
     }
 }

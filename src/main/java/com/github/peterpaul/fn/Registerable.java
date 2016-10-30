@@ -1,7 +1,9 @@
 package com.github.peterpaul.fn;
 
-public interface Registerable {
-    void register(Runner runner);
+import javax.annotation.Nonnull;
 
-    void unregister(Runner runner);
+public interface Registerable {
+    void register(@Nonnull Runner runner);
+
+    void unregister(@Nonnull Runner runner);
 }

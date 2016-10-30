@@ -1,9 +1,11 @@
 package com.github.peterpaul.fn;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedHashMap;
 
 public class MemoizedFunction<T, R> extends Function<T, R> implements Registerable, Flushable {
-    public static <T, R> MemoizedFunction<T, R> memoize(Function<T, R> functionToMemoize) {
+    @Nonnull
+    public static <T, R> MemoizedFunction<T, R> memoize(@Nonnull Function<T, R> functionToMemoize) {
         return new MemoizedFunction<>(functionToMemoize);
     }
 
@@ -11,14 +13,15 @@ public class MemoizedFunction<T, R> extends Function<T, R> implements Registerab
     private final Function<T, R> functionToMemoize;
     private final LinkedHashMap<T, R> memo;
 
-    private MemoizedFunction(Function<T, R> functionToMemoize) {
+    private MemoizedFunction(@Nonnull Function<T, R> functionToMemoize) {
         this.functionToMemoize = functionToMemoize;
         this.broadcaster = new Broadcaster();
         this.memo = new LinkedHashMap<>();
     }
 
+    @Nonnull
     @Override
-    public R apply(T in) {
+    public R apply(@Nonnull T in) {
         R out = memo.get(in);
         if (out == null) {
             synchronized (this) {
@@ -33,12 +36,12 @@ public class MemoizedFunction<T, R> extends Function<T, R> implements Registerab
     }
 
     @Override
-    public void register(Runner runner) {
+    public void register(@Nonnull Runner runner) {
         broadcaster.register(runner);
     }
 
     @Override
-    public void unregister(Runner runner) {
+    public void unregister(@Nonnull Runner runner) {
         broadcaster.unregister(runner);
     }
 

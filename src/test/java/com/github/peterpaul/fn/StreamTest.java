@@ -4,6 +4,7 @@ import com.github.peterpaul.fn.recitables.IterableRecitable;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -20,8 +21,9 @@ public class StreamTest {
         java.util.List<Integer> actual = Stream
                 .stream(1, 2, 3, 4, 5)
                 .filter(new Predicate<Integer>() {
+                    @Nonnull
                     @Override
-                    public Boolean apply(Integer input) {
+                    public Boolean apply(@Nonnull Integer input) {
                         return input % 2 == 1;
                     }
                 })
@@ -34,14 +36,16 @@ public class StreamTest {
         java.util.List<Integer> actual = Stream
                 .stream(Arrays.asList(1, 2, 3), Collections.singleton(4), Collections.<Integer>emptySet(), Arrays.asList(5, 6))
                 .flatMap(new Function<Collection<Integer>, Recitable<Integer>>() {
+                    @Nonnull
                     @Override
-                    public Recitable<Integer> apply(Collection<Integer> input) {
+                    public Recitable<Integer> apply(@Nonnull Collection<Integer> input) {
                         return new IterableRecitable<>(input);
                     }
                 })
                 .map(new Function<Integer, Integer>() {
+                    @Nonnull
                     @Override
-                    public Integer apply(Integer input) {
+                    public Integer apply(@Nonnull Integer input) {
                         return input * 2;
                     }
                 })
@@ -54,8 +58,9 @@ public class StreamTest {
         Option<Object> actual = Stream
                 .stream(Collections.emptyList())
                 .reduce(new Reduction<Object>() {
+                    @Nonnull
                     @Override
-                    public Object apply(Object o, Object o2) {
+                    public Object apply(@Nonnull Object o, @Nonnull Object o2) {
                         return new Object();
                     }
                 });
@@ -67,8 +72,9 @@ public class StreamTest {
         Option<Integer> actual = Stream
                 .stream(1, 2, 3, 4, 5)
                 .reduce(new Reduction<Integer>() {
+                    @Nonnull
                     @Override
-                    public Integer apply(Integer a, Integer b) {
+                    public Integer apply(@Nonnull Integer a, @Nonnull Integer b) {
                         return a + b;
                     }
                 });
@@ -80,8 +86,9 @@ public class StreamTest {
         int actual = Stream
                 .stream(1, 2, 3, 4, 5)
                 .reduce(0, new Reduction<Integer>() {
+                    @Nonnull
                     @Override
-                    public Integer apply(Integer a, Integer b) {
+                    public Integer apply(@Nonnull Integer a, @Nonnull Integer b) {
                         return a + b;
                     }
                 });

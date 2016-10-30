@@ -4,13 +4,16 @@ import com.github.peterpaul.fn.List;
 import com.github.peterpaul.fn.Option;
 import com.github.peterpaul.fn.Reciter;
 
+import javax.annotation.Nonnull;
+
 public class ListReciter<T> extends Reciter<T> {
     private List<T> tail;
 
-    public ListReciter(List<T> in) {
+    public ListReciter(@Nonnull List<T> in) {
         this.tail = in;
     }
 
+    @Nonnull
     @Override
     public Option<T> get() {
         if (tail.isNil()) {

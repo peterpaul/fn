@@ -1,5 +1,6 @@
 package com.github.peterpaul.fn;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,12 +19,12 @@ public final class Broadcaster implements Registerable, Runner {
     }
 
     @Override
-    public synchronized void register(Runner listener) {
+    public synchronized void register(@Nonnull Runner listener) {
         listeners.add(listener);
     }
 
     @Override
-    public synchronized void unregister(Runner listener) {
+    public synchronized void unregister(@Nonnull Runner listener) {
         listeners.remove(listener);
     }
 }

@@ -4,71 +4,84 @@ import com.github.peterpaul.fn.annotations.Eager;
 import com.github.peterpaul.fn.annotations.Lazy;
 import com.github.peterpaul.fn.recitables.*;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Iterator;
 
 public class Stream<T> implements Recitable<T>, Iterable<T> {
     private final Recitable<T> stream;
 
-    private Stream(Recitable<T> stream) {
+    private Stream(@Nonnull Recitable<T> stream) {
         this.stream = stream;
     }
 
-    public static <T> Stream<T> stream(Iterable<T> in) {
+    @Nonnull
+    public static <T> Stream<T> stream(@Nonnull Iterable<T> in) {
         return new Stream<>(new IterableRecitable<>(in));
     }
 
+    @Nonnull
     @SafeVarargs
-    public static <T> Stream<T> stream(T... items) {
+    public static <T> Stream<T> stream(@Nonnull T... items) {
         return new Stream<>(new ArrayRecitable<>(items));
     }
 
-    public static <T> Stream<T> stream(Recitable<T> in) {
+    @Nonnull
+    public static <T> Stream<T> stream(@Nonnull Recitable<T> in) {
         return new Stream<>(in);
     }
 
+    @Nonnull
     @Override
     public Reciter<T> recite() {
         return stream.recite();
     }
 
+    @Nonnull
     @Override
     public Iterator<T> iterator() {
         return recite().iterator();
     }
 
     @Lazy
-    public <R> Stream<R> map(Function<T, R> mapper) {
+    @Nonnull
+    public <R> Stream<R> map(@Nonnull Function<T, R> mapper) {
         return new Stream<>(new MappedRecitable<>(stream, mapper));
     }
 
     @Lazy
-    public <R> Stream<R> flatMap(Function<T, Recitable<R>> mapper) {
-        return new Stream<R>(new FlatmappedRecitable(stream, mapper));
+    @Nonnull
+    public <R> Stream<R> flatMap(@Nonnull Function<T, Recitable<R>> mapper) {
+        return new Stream<>(new FlatmappedRecitable<>(stream, mapper));
     }
 
     @Lazy
-    public Stream<T> filter(Predicate<T> filter) {
+    @Nonnull
+    public Stream<T> filter(@Nonnull Predicate<T> filter) {
         return new Stream<>(new FilteredRecitable<>(stream, filter));
     }
 
     @Lazy
-    public Stream<T> peek(Consumer<T> consumer) {
+    @Nonnull
+    public Stream<T> peek(@Nonnull Consumer<T> consumer) {
         return new Stream<>(new PeekRecitable<>(stream, consumer));
     }
 
     @Lazy
+    @Nonnull
     public Stream<T> drop(int n) {
         return new Stream<>(new DropRecitable<>(stream, n));
     }
 
     @Lazy
+    @Nonnull
     public Stream<T> take(int n) {
         return new Stream<>(new TakeRecitable<>(stream, n));
     }
 
     @Eager
-    public <C extends Collection<T>> C to(C target) {
+    @Nonnull
+    public <C extends Collection<T>> C to(@Nonnull C target) {
         for (T item : this) {
             target.add(item);
         }
@@ -76,7 +89,8 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     }
 
     @Eager
-    public Option<T> reduce(final Reduction<T> reduction) {
+    @Nonnull
+    public Option<T> reduce(@Nonnull final Reduction<T> reduction) {
         boolean hasValue = false;
         T out = null;
         for (T item : this) {
@@ -91,7 +105,8 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     }
 
     @Eager
-    public T reduce(T initial, Reduction<T> reduction) {
+    @Nonnull
+    public T reduce(@Nonnull T initial, @Nonnull Reduction<T> reduction) {
         T out = initial;
         for (T item : this) {
             out = reduction.apply(out, item);

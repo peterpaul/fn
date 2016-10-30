@@ -1,15 +1,18 @@
 package com.github.peterpaul.fn;
 
+import javax.annotation.Nonnull;
+
 public class CacheSupplier<T> extends Supplier<T> implements Registerable, Flushable {
     private final Supplier<T> delegate;
     private final Broadcaster broadcaster;
     private volatile T value;
 
-    public CacheSupplier(Supplier<T> delegate) {
+    public CacheSupplier(@Nonnull Supplier<T> delegate) {
         this.delegate = delegate;
         broadcaster = new Broadcaster();
     }
 
+    @Nonnull
     @Override
     public T get() {
         T result = value;
@@ -26,12 +29,12 @@ public class CacheSupplier<T> extends Supplier<T> implements Registerable, Flush
 
 
     @Override
-    public void register(Runner runner) {
+    public void register(@Nonnull Runner runner) {
         broadcaster.register(runner);
     }
 
     @Override
-    public void unregister(Runner runner) {
+    public void unregister(@Nonnull Runner runner) {
         broadcaster.unregister(runner);
     }
 

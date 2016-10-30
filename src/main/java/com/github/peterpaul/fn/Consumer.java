@@ -1,5 +1,7 @@
 package com.github.peterpaul.fn;
 
+import javax.annotation.Nonnull;
+
 public interface Consumer<T> {
-    void consume(T input);
+    void consume(@Nonnull T input);
 }

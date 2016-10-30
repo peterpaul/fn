@@ -3,6 +3,7 @@ package com.github.peterpaul.fn.iterators;
 import com.github.peterpaul.fn.Reciter;
 import com.github.peterpaul.fn.Option;
 
+import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -10,7 +11,7 @@ public class IterIterator<T> implements Iterator<T> {
     private final Reciter<T> tail;
     private Option<T> head;
 
-    public IterIterator(Reciter<T> reciter) {
+    public IterIterator(@Nonnull Reciter<T> reciter) {
         this.tail = reciter;
         this.head = tail.get();
     }
@@ -20,6 +21,7 @@ public class IterIterator<T> implements Iterator<T> {
         return head.isPresent();
     }
 
+    @Nonnull
     @Override
     public T next() {
         if (head.isPresent()) {
