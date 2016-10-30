@@ -79,6 +79,12 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
         return new Stream<>(new TakeRecitable<>(stream, n));
     }
 
+    @Lazy
+    @Nonnull
+    public <S> Stream<Pair<T, S>> zip(Recitable<S> others) {
+        return new Stream<>(new ZipRecitable<>(stream, others));
+    }
+
     @Eager
     @Nonnull
     public <C extends Collection<T>> C to(@Nonnull C target) {
