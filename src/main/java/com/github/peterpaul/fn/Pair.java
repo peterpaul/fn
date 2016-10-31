@@ -1,6 +1,10 @@
 package com.github.peterpaul.fn;
 
+import com.github.peterpaul.fn.equals.Equals;
+
 import javax.annotation.Nonnull;
+
+import java.util.Objects;
 
 import static com.github.peterpaul.fn.validations.Validations.notNull;
 
@@ -36,6 +40,20 @@ public final class Pair<L, R> {
     public String toString() {
         return "pair(" + left + ", " + right + ')';
     }
-	
-	// TODO add equals and hashcode
+
+    @Override
+    public boolean equals(Object o) {
+        return Equals.equals(this, o, new Equals.EqualsChecker<Pair<L, R>>() {
+            @Override
+            public boolean isEqualTo(@Nonnull Pair<L, R> other) {
+                return Objects.equals(left, other.left) &&
+                        Objects.equals(right, other.right);
+            }
+        });
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(left, right);
+    }
 }

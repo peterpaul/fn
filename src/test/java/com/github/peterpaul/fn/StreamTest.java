@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import static com.github.peterpaul.fn.Pair.pair;
 import static com.github.peterpaul.fn.Stream.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
@@ -130,7 +131,7 @@ public class StreamTest {
 
     @Test
     public void testZip() {
-        stream(1, 2, 3, 4, 5)
+        ArrayList<Pair<Integer, Character>> actual = stream(1, 2, 3, 4, 5)
                 .zip(stream('a', 'b', 'c'))
                 .peek(new Consumer<Pair<Integer, Character>>() {
                     @Override
@@ -139,5 +140,12 @@ public class StreamTest {
                     }
                 })
                 .to(new ArrayList<Pair<Integer, Character>>());
+        assertThat(actual, contains(pair(1, 'a'), pair(2, 'b'), pair(3, 'c')));
+    }
+
+    @Test
+    public void testIntegerRange() {
+        ArrayList<Integer> actual = stream(IntegerRange.range(1, 8)).to(new ArrayList<Integer>());
+        assertThat(actual, contains(1, 2, 3, 4, 5, 6, 7));
     }
 }
