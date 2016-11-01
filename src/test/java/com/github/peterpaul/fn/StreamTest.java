@@ -164,4 +164,16 @@ public class StreamTest {
         Either<Integer, UniquenessErrorStatus<Integer>> actual = stream(1, 2).unique();
         assertThat(actual, is(equalTo(Either.<Integer, UniquenessErrorStatus<Integer>>right(UniquenessErrorStatus.tooManyElements(new HashSet<>(Arrays.asList(1, 2)))))));
     }
+
+    @Test
+    public void testFirst() {
+        Option<Integer> actual = stream(1, 2).first();
+        assertThat(actual, is(equalTo(Option.of(1))));
+    }
+
+    @Test
+    public void testFirstNoElements() {
+        Option<Integer> actual = Stream.<Integer>stream().first();
+        assertThat(actual, is(equalTo(Option.<Integer>none())));
+    }
 }

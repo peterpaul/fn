@@ -136,4 +136,10 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
             return Either.left(resultSet.iterator().next());
         }
     }
+
+    @Eager
+    @Nonnull
+    public Option<T> first() {
+        return reciter().get();
+    }
 }
