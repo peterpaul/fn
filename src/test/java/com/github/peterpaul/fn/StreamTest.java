@@ -1,14 +1,12 @@
 package com.github.peterpaul.fn;
 
 import com.github.peterpaul.fn.recitables.IterableRecitable;
+import com.github.peterpaul.fn.status.UniquenessErrorStatus;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 
 import static com.github.peterpaul.fn.Pair.pair;
 import static com.github.peterpaul.fn.Stream.stream;
@@ -147,5 +145,23 @@ public class StreamTest {
     public void testIntegerRange() {
         ArrayList<Integer> actual = stream(IntegerRange.range(1, 8)).to(new ArrayList<Integer>());
         assertThat(actual, contains(1, 2, 3, 4, 5, 6, 7));
+    }
+
+    @Test
+    public void testUnique() {
+        Either<Integer, UniquenessErrorStatus<Integer>> actual = stream(1).unique();
+        assertThat(actual, is(equalTo(Either.<Integer, UniquenessErrorStatus<Integer>>left(1))));
+    }
+
+    @Test
+    public void testUniqueNoElements() {
+        Either<Integer, UniquenessErrorStatus<Integer>> actual = Stream.<Integer>stream().unique();
+        assertThat(actual, is(equalTo(Either.<Integer, UniquenessErrorStatus<Integer>>right(UniquenessErrorStatus.<Integer>noElements()))));
+    }
+
+    @Test
+    public void testUniqueTooManyElements() {
+        Either<Integer, UniquenessErrorStatus<Integer>> actual = stream(1, 2).unique();
+        assertThat(actual, is(equalTo(Either.<Integer, UniquenessErrorStatus<Integer>>right(UniquenessErrorStatus.tooManyElements(new HashSet<>(Arrays.asList(1, 2)))))));
     }
 }

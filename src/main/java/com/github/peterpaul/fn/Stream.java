@@ -3,10 +3,14 @@ package com.github.peterpaul.fn;
 import com.github.peterpaul.fn.annotations.Eager;
 import com.github.peterpaul.fn.annotations.Lazy;
 import com.github.peterpaul.fn.recitables.*;
+import com.github.peterpaul.fn.status.UniquenessErrorStatus;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+
+import static com.github.peterpaul.fn.status.UniquenessErrorStatus.tooManyElements;
 
 public class Stream<T> implements Recitable<T>, Iterable<T> {
     private final Recitable<T> stream;
@@ -118,5 +122,18 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
             out = reduction.apply(out, item);
         }
         return out;
+    }
+
+    @Eager
+    @Nonnull
+    public Either<T, UniquenessErrorStatus<T>> unique() {
+        HashSet<T> resultSet = to(new HashSet<T>());
+        if (resultSet.isEmpty()) {
+            return Either.right(UniquenessErrorStatus.<T>noElements());
+        } else if (resultSet.size() > 1) {
+            return Either.right(tooManyElements(resultSet));
+        } else {
+            return Either.left(resultSet.iterator().next());
+        }
     }
 }
