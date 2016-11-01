@@ -49,25 +49,25 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Lazy
     @Nonnull
-    public <R> Stream<R> map(@Nonnull Function<T, R> mapper) {
+    public <R> Stream<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
         return new Stream<>(new MappedRecitable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
-    public <R> Stream<R> flatMap(@Nonnull Function<T, Recitable<R>> mapper) {
+    public <R> Stream<R> flatMap(@Nonnull Function<? super T, ? extends Recitable<R>> mapper) {
         return new Stream<>(new FlatmappedRecitable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
-    public Stream<T> filter(@Nonnull Predicate<T> filter) {
+    public Stream<T> filter(@Nonnull Predicate<? super T> filter) {
         return new Stream<>(new FilteredRecitable<>(stream, filter));
     }
 
     @Lazy
     @Nonnull
-    public Stream<T> peek(@Nonnull Consumer<T> consumer) {
+    public Stream<T> peek(@Nonnull Consumer<? super T> consumer) {
         return new Stream<>(new PeekRecitable<>(stream, consumer));
     }
 

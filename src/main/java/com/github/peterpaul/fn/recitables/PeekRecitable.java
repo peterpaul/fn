@@ -9,9 +9,9 @@ import javax.annotation.Nonnull;
 
 public class PeekRecitable<T> implements Recitable<T> {
     private final Recitable<T> in;
-    private final Consumer<T> consumer;
+    private final Consumer<? super T> consumer;
 
-    public PeekRecitable(@Nonnull Recitable<T> in, @Nonnull Consumer<T> consumer) {
+    public PeekRecitable(@Nonnull Recitable<T> in, @Nonnull Consumer<? super T> consumer) {
         this.in = in;
         this.consumer = consumer;
     }

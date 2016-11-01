@@ -9,7 +9,7 @@ import javax.annotation.Nonnull;
 
 public class FlatmappedReciter<T, R> extends Reciter<R> {
     private final Reciter<T> in;
-    private final Function<T, Recitable<R>> mapper;
+    private final Function<? super T, ? extends Recitable<R>> mapper;
     private Option<T> inputItem;
     private Option<Reciter<R>> outputReciter;
     private final Function<Recitable<R>, Reciter<R>> recite = new Function<Recitable<R>, Reciter<R>>() {
@@ -27,7 +27,7 @@ public class FlatmappedReciter<T, R> extends Reciter<R> {
         }
     };
 
-    public FlatmappedReciter(@Nonnull Reciter<T> in, @Nonnull Function<T, Recitable<R>> mapper) {
+    public FlatmappedReciter(@Nonnull Reciter<T> in, @Nonnull Function<? super T, ? extends Recitable<R>> mapper) {
         super();
         this.in = in;
         this.mapper = mapper;

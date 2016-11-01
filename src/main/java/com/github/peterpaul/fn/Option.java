@@ -55,7 +55,7 @@ public abstract class Option<T> implements Recitable<T> {
     }
 
     @Nonnull
-    public <R> Option<R> map(@Nonnull Function<T, R> mapper) {
+    public <R> Option<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
         return Option.none();
     }
 
@@ -70,7 +70,7 @@ public abstract class Option<T> implements Recitable<T> {
     }
 
     @Nonnull
-    public Option<T> peek(@Nonnull Consumer<T> consumer) {
+    public Option<T> peek(@Nonnull Consumer<? super T> consumer) {
         return this;
     }
 
@@ -123,7 +123,7 @@ public abstract class Option<T> implements Recitable<T> {
 
         @Nonnull
         @Override
-        public <R> Option<R> map(@Nonnull Function<T, R> mapper) {
+        public <R> Option<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
             return Option.of(mapper.apply(value));
         }
 
@@ -143,7 +143,7 @@ public abstract class Option<T> implements Recitable<T> {
 
         @Nonnull
         @Override
-        public Option<T> peek(@Nonnull Consumer<T> consumer) {
+        public Option<T> peek(@Nonnull Consumer<? super T> consumer) {
             consumer.consume(value);
             return this;
         }

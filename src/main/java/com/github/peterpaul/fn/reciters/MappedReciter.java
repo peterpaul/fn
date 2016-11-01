@@ -8,9 +8,9 @@ import javax.annotation.Nonnull;
 
 public class MappedReciter<T, R> extends Reciter<R> {
     private final Reciter<T> in;
-    private final Function<T, R> mapper;
+    private final Function<? super T, ? extends R> mapper;
 
-    public MappedReciter(@Nonnull Reciter<T> in, @Nonnull Function<T, R> mapper) {
+    public MappedReciter(@Nonnull Reciter<T> in, @Nonnull Function<? super T, ? extends R> mapper) {
         this.in = in;
         this.mapper = mapper;
     }

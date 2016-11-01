@@ -8,9 +8,9 @@ import javax.annotation.Nonnull;
 
 public class FilteredReciter<T> extends Reciter<T> {
     private final Reciter<T> in;
-    private final Predicate<T> filter;
+    private final Predicate<? super T> filter;
 
-    public FilteredReciter(@Nonnull Reciter<T> in, @Nonnull Predicate<T> filter) {
+    public FilteredReciter(@Nonnull Reciter<T> in, @Nonnull Predicate<? super T> filter) {
         this.in = in;
         this.filter = filter;
     }
