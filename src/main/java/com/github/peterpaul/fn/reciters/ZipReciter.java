@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 public class ZipReciter<L, R> extends Reciter<Pair<L, R>> {
     private final Reciter<L> inLeft;
     private final Reciter<R> inRight;
-    private Function<L, Option<Pair<L, R>>> zip = new Function<L, Option<Pair<L, R>>>() {
+    private final Function<L, Option<Pair<L, R>>> zip = new Function<L, Option<Pair<L, R>>>() {
         @Nonnull
         @Override
         public Option<Pair<L, R>> apply(@Nonnull final L left) {

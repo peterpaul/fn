@@ -9,8 +9,6 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public abstract class Option<T> implements Recitable<T> {
-    private static final None NONE = new None();
-
     @Nonnull
     public static <T> Option<T> of(@CheckForNull T item) {
         if (item == null) {
@@ -28,7 +26,7 @@ public abstract class Option<T> implements Recitable<T> {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <T> Option<T> none() {
-        return (Option<T>) NONE;
+        return (Option<T>) None.NONE;
     }
 
     @Nonnull
@@ -181,6 +179,8 @@ public abstract class Option<T> implements Recitable<T> {
     }
 
     private static final class None<T> extends Option<T> {
+        static final None NONE = new None();
+
         @Nonnull
         @Override
         public String toString() {

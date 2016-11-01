@@ -5,8 +5,6 @@ import com.github.peterpaul.fn.reciters.ListReciter;
 import javax.annotation.Nonnull;
 
 public abstract class List<T> implements Recitable<T> {
-    private static final Nil NIL = new Nil();
-
     @Nonnull
     public static <T> Cons<T> cons(@Nonnull Supplier<T> head, @Nonnull List<T> tail) {
         return new Cons<>(head, tail);
@@ -20,7 +18,7 @@ public abstract class List<T> implements Recitable<T> {
     @Nonnull
     @SuppressWarnings("unchecked")
     public static <T> Nil<T> nil() {
-        return NIL;
+        return Nil.NIL;
     }
 
     public boolean isNil() {
@@ -84,6 +82,8 @@ public abstract class List<T> implements Recitable<T> {
     }
 
     public static final class Nil<T> extends List<T> {
+        static final Nil NIL = new Nil();
+
         @Nonnull
         @Override
         public String toString() {

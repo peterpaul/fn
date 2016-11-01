@@ -127,6 +127,7 @@ public class StreamTest {
         assertThat(actual, is(Matchers.<Integer>empty()));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testZip() {
         ArrayList<Pair<Integer, Character>> actual = stream(1, 2, 3, 4, 5)
