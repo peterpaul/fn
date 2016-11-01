@@ -37,14 +37,14 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return stream.recite();
+    public Reciter<T> reciter() {
+        return stream.reciter();
     }
 
     @Nonnull
     @Override
     public Iterator<T> iterator() {
-        return recite().iterator();
+        return reciter().iterator();
     }
 
     @Lazy

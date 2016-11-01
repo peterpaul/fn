@@ -18,7 +18,7 @@ public class MappedRecitable<T, R> implements Recitable<R> {
 
     @Nonnull
     @Override
-    public Reciter<R> recite() {
-        return new MappedReciter<>(in.recite(), mapper);
+    public Reciter<R> reciter() {
+        return new MappedReciter<>(in.reciter(), mapper);
     }
 }

@@ -64,7 +64,7 @@ public class IntegerRange implements Recitable<Integer> {
 
     @Nonnull
     @Override
-    public Reciter<Integer> recite() {
+    public Reciter<Integer> reciter() {
         return new IntegerRangeReciter(from, to);
     }
 

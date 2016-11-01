@@ -34,7 +34,7 @@ public abstract class List<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
+    public Reciter<T> reciter() {
         return new ListReciter<>(this);
     }
 

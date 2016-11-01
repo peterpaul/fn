@@ -17,7 +17,7 @@ public class TakeRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return new TakeReciter<>(in.recite(), n);
+    public Reciter<T> reciter() {
+        return new TakeReciter<>(in.reciter(), n);
     }
 }

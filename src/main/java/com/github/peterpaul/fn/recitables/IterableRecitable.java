@@ -15,7 +15,7 @@ public class IterableRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
+    public Reciter<T> reciter() {
         return new IteratorReciter<>(iterable.iterator());
     }
 }

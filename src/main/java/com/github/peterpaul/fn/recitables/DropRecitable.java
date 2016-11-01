@@ -17,7 +17,7 @@ public class DropRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return new DropReciter<>(in.recite(), n);
+    public Reciter<T> reciter() {
+        return new DropReciter<>(in.reciter(), n);
     }
 }

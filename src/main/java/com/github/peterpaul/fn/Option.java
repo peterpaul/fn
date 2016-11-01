@@ -82,7 +82,7 @@ public abstract class Option<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
+    public Reciter<T> reciter() {
         return new OptionReciter<>(this);
     }
 

@@ -15,7 +15,7 @@ public class ArrayRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
+    public Reciter<T> reciter() {
         return new ArrayReciter<>(in);
     }
 }

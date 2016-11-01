@@ -18,7 +18,7 @@ public class ZipRecitable<T, S>  implements Recitable<Pair<T, S>> {
 
     @Nonnull
     @Override
-    public Reciter<Pair<T, S>> recite() {
-        return new ZipReciter<>(stream.recite(), others.recite());
+    public Reciter<Pair<T, S>> reciter() {
+        return new ZipReciter<>(stream.reciter(), others.reciter());
     }
 }

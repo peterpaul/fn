@@ -18,7 +18,7 @@ public class PeekRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return new PeekReciter<>(in.recite(), consumer);
+    public Reciter<T> reciter() {
+        return new PeekReciter<>(in.reciter(), consumer);
     }
 }

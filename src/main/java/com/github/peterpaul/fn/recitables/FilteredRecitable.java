@@ -18,7 +18,7 @@ public class FilteredRecitable<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> recite() {
-        return new FilteredReciter<>(in.recite(), filter);
+    public Reciter<T> reciter() {
+        return new FilteredReciter<>(in.reciter(), filter);
     }
 }

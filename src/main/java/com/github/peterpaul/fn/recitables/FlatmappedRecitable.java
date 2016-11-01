@@ -18,7 +18,7 @@ public class FlatmappedRecitable<T, R> implements Recitable<R> {
 
     @Nonnull
     @Override
-    public Reciter<R> recite() {
-        return new FlatmappedReciter<>(in.recite(), mapper);
+    public Reciter<R> reciter() {
+        return new FlatmappedReciter<>(in.reciter(), mapper);
     }
 }

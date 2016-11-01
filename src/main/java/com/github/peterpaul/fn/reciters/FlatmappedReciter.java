@@ -16,7 +16,7 @@ public class FlatmappedReciter<T, R> extends Reciter<R> {
         @Nonnull
         @Override
         public Reciter<R> apply(@Nonnull Recitable<R> recitable) {
-            return recitable.recite();
+            return recitable.reciter();
         }
     };
     private final Function<Reciter<R>, Option<R>> supplier = new Function<Reciter<R>, Option<R>>() {
