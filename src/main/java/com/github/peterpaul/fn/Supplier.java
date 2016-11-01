@@ -24,12 +24,6 @@ public abstract class Supplier<T> {
 
     @Nonnull
     public <R> Supplier<R> map(@Nonnull final Function<T, R> mapper) {
-        return new Supplier<R>() {
-            @Nonnull
-            @Override
-            public R get() {
-                return mapper.apply(Supplier.this.get());
-            }
-        };
+        return mapper.$(this);
     }
 }

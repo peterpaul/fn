@@ -16,4 +16,15 @@ public abstract class Function<T, R> {
             }
         };
     }
+
+    @Nonnull
+    public Supplier<R> $(@Nonnull final Supplier<T> input) {
+        return new Supplier<R>() {
+            @Nonnull
+            @Override
+            public R get() {
+                return apply(input.get());
+            }
+        };
+    }
 }
