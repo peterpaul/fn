@@ -60,6 +60,9 @@ public abstract class Option<T> implements Recitable<T> {
     }
 
     @Nonnull
+    public abstract <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier);
+
+    @Nonnull
     public <R> Option<R> flatMap(@Nonnull Function<T, Option<R>> mapper) {
         return Option.none();
     }
@@ -129,6 +132,12 @@ public abstract class Option<T> implements Recitable<T> {
 
         @Nonnull
         @Override
+        public <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier) {
+            return mapper.apply(value);
+        }
+
+        @Nonnull
+        @Override
         public <R> Option<R> flatMap(@Nonnull Function<T, Option<R>> mapper) {
             return mapper.apply(value);
         }
@@ -185,6 +194,12 @@ public abstract class Option<T> implements Recitable<T> {
         @Override
         public String toString() {
             return "none";
+        }
+
+        @Nonnull
+        @Override
+        public <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier) {
+            return supplier.get();
         }
     }
 }
