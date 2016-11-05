@@ -6,9 +6,7 @@ import com.github.peterpaul.fn.recitables.*;
 import com.github.peterpaul.fn.status.UniquenessErrorStatus;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 import static com.github.peterpaul.fn.status.UniquenessErrorStatus.tooManyElements;
 
@@ -67,6 +65,12 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Lazy
     @Nonnull
+    public <R>  Stream<R> filterMap(@Nonnull Function<? super T, Option<R>> filteredMapper){
+        return new Stream<>(new FilterMapRecitable<>(stream, filteredMapper));
+    }
+
+    @Lazy
+    @Nonnull
     public Stream<T> peek(@Nonnull Consumer<? super T> consumer) {
         return new Stream<>(new PeekRecitable<>(stream, consumer));
     }
@@ -96,6 +100,28 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
             target.add(item);
         }
         return target;
+    }
+
+    @Eager
+    @Nonnull
+    public <K, V> Map<K, V> toMap(Function<? super T, ? extends K> keyFunction,
+                                  Function<? super T, ? extends V> valueFunction) {
+        Map<K, V> out = new HashMap<>();
+        for (T item : this) {
+            out.put(keyFunction.apply(item), valueFunction.apply(item));
+        }
+        return out;
+    }
+
+    @Eager
+    @Nonnull
+    public <K, V> Map<K, V> toMap(Function<? super T, Pair<K, V>> entryFunction) {
+        Map<K, V> out = new HashMap<>();
+        for (T item : this) {
+            Pair<K, V> entry = entryFunction.apply(item);
+            out.put(entry.getLeft(), entry.getRight());
+        }
+        return out;
     }
 
     @Eager

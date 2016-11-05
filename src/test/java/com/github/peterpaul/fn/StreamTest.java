@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.List;
 
+import static com.github.peterpaul.fn.Option.some;
 import static com.github.peterpaul.fn.Pair.pair;
 import static com.github.peterpaul.fn.Stream.stream;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -78,7 +80,7 @@ public class StreamTest {
                                 return a + b;
                             }
                         });
-        assertThat(actual, is(equalTo(Option.some(15))));
+        assertThat(actual, is(equalTo(some(15))));
     }
 
     @Test
@@ -176,5 +178,20 @@ public class StreamTest {
     public void testFirstNoElements() {
         Option<Integer> actual = Stream.<Integer>stream().first();
         assertThat(actual, is(equalTo(Option.<Integer>none())));
+    }
+
+    @Test
+    public void testFilterMap() {
+        List<Integer> actual = Stream.stream(
+                some(1),
+                Option.<Integer>none(),
+                some(2),
+                Option.<Integer>none(),
+                some(3),
+                Option.<Integer>none(),
+                Option.<Integer>none())
+                .filterMap(Function.<Option<Integer>>identity())
+                .to(new ArrayList<Integer>());
+        assertThat(actual, contains(1, 2, 3));
     }
 }
