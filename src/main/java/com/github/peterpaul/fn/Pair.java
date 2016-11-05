@@ -41,6 +41,7 @@ public final class Pair<L, R> {
         return "pair(" + left + ", " + right + ')';
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<Pair<L, R>>() {

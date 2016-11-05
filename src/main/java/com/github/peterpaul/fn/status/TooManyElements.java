@@ -23,6 +23,7 @@ public final class TooManyElements<T> {
         return "TooManyElements(" + items + ')';
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<TooManyElements<T>>() {

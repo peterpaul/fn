@@ -46,6 +46,7 @@ public class IntegerRange implements Recitable<Integer> {
         return "range[" + from + ", " + to + ')';
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<IntegerRange>() {

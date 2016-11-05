@@ -35,6 +35,7 @@ public class UniquenessErrorStatus<T> {
         return "UniquenessErrorStatus(" + status + '}';
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<UniquenessErrorStatus>() {

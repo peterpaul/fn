@@ -11,6 +11,7 @@ public final class NoElements {
         return "NoElements()";
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<NoElements>() {
