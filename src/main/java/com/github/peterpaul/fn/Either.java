@@ -44,9 +44,9 @@ public abstract class Either<L, R> {
     }
 
     @Nonnull
-    public abstract <S> S map(@Nonnull Function<L, S> fromLeft, @Nonnull Function<R, S> fromRight);
+    public abstract <S> S map(@Nonnull Function<? super L, ? extends S> fromLeft, @Nonnull Function<? super R, ? extends S> fromRight);
 
-    public abstract void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right);
+    public abstract void consume(@Nonnull Consumer<? super L> left, @Nonnull Consumer<? super R> right);
 
     public static final class Left<L, R> extends Either<L, R> {
         private final L left;
@@ -57,12 +57,12 @@ public abstract class Either<L, R> {
 
         @Nonnull
         @Override
-        public <S> S map(@Nonnull Function<L, S> fromLeft, @Nonnull Function<R, S> fromRight) {
+        public <S> S map(@Nonnull Function<? super L, ? extends S> fromLeft, @Nonnull Function<? super R, ? extends S> fromRight) {
             return fromLeft.apply(left);
         }
 
         @Override
-        public void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right) {
+        public void consume(@Nonnull Consumer<? super L> left, @Nonnull Consumer<? super R> right) {
             left.consume(this.left);
         }
 
@@ -115,12 +115,12 @@ public abstract class Either<L, R> {
 
         @Nonnull
         @Override
-        public <S> S map(@Nonnull Function<L, S> fromLeft, @Nonnull Function<R, S> fromRight) {
+        public <S> S map(@Nonnull Function<? super L, ? extends S> fromLeft, @Nonnull Function<? super R, ? extends S> fromRight) {
             return fromRight.apply(right);
         }
 
         @Override
-        public void consume(@Nonnull Consumer<L> left, @Nonnull Consumer<R> right) {
+        public void consume(@Nonnull Consumer<? super L> left, @Nonnull Consumer<? super R> right) {
             right.consume(this.right);
         }
 
