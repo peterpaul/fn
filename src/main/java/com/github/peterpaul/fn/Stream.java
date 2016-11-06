@@ -94,6 +94,13 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     }
 
     @Eager
+    public void forEach(@Nonnull Consumer<? super T> consumer) {
+        for (T item : this) {
+            consumer.consume(item);
+        }
+    }
+
+    @Eager
     @Nonnull
     public <C extends Collection<T>> C to(@Nonnull C target) {
         for (T item : this) {
@@ -104,8 +111,8 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Eager
     @Nonnull
-    public <K, V> Map<K, V> toMap(Function<? super T, ? extends K> keyFunction,
-                                  Function<? super T, ? extends V> valueFunction) {
+    public <K, V> Map<K, V> toMap(@Nonnull Function<? super T, ? extends K> keyFunction,
+                                  @Nonnull Function<? super T, ? extends V> valueFunction) {
         Map<K, V> out = new HashMap<>();
         for (T item : this) {
             out.put(keyFunction.apply(item), valueFunction.apply(item));
@@ -115,7 +122,7 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Eager
     @Nonnull
-    public <K, V> Map<K, V> toMap(Function<? super T, Pair<K, V>> entryFunction) {
+    public <K, V> Map<K, V> toMap(@Nonnull Function<T, Pair<K, V>> entryFunction) {
         Map<K, V> out = new HashMap<>();
         for (T item : this) {
             Pair<K, V> entry = entryFunction.apply(item);
