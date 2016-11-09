@@ -158,6 +158,11 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     }
 
     @Eager
+    boolean isEmpty() {
+        return !reciter().iterator().hasNext();
+    }
+
+    @Eager
     @Nonnull
     public Either<T, UniquenessErrorStatus<T>> unique() {
         HashSet<T> resultSet = to(new HashSet<T>());
