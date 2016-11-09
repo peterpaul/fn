@@ -165,9 +165,7 @@ public abstract class Option<T> implements Recitable<T> {
         @Nonnull
         @Override
         public String toString() {
-            return "some(" +
-                    "value=" + value +
-                    ')';
+            return "some(" + value + ')';
         }
 
         @Override
