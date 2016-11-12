@@ -10,10 +10,12 @@ import java.util.Set;
 public class UniquenessErrorStatus<T> {
     private final Either<NoElements, TooManyElements<T>> status;
 
+    @Nonnull
     public static <T> UniquenessErrorStatus<T> noElements() {
         return new UniquenessErrorStatus<>(new NoElements());
     }
 
+    @Nonnull
     public static <T> UniquenessErrorStatus<T> tooManyElements(Set<T> items) {
         return new UniquenessErrorStatus<>(new TooManyElements<>(items));
     }
@@ -26,17 +28,19 @@ public class UniquenessErrorStatus<T> {
         this.status = Either.right(status);
     }
 
+    @Nonnull
     public Either<NoElements, TooManyElements<T>> getStatus() {
         return status;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "UniquenessErrorStatus(" + status + '}';
     }
 
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<UniquenessErrorStatus>() {
             @Override

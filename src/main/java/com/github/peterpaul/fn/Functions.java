@@ -1,5 +1,7 @@
 package com.github.peterpaul.fn;
 
+import com.github.peterpaul.fn.annotations.Lazy;
+
 import javax.annotation.Nonnull;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ public class Functions {
         }
     };
 
+    @Lazy
     @Nonnull
     public static <T, R> Function<T, Option<R>> mapper(@Nonnull final Map<T, R> map) {
         return new Function<T, Option<R>>() {

@@ -1,11 +1,16 @@
 package com.github.peterpaul.fn;
 
+import com.github.peterpaul.fn.annotations.Eager;
+import com.github.peterpaul.fn.annotations.Lazy;
+
 import javax.annotation.Nonnull;
 
 public abstract class Function<T, R> {
+    @Eager
     @Nonnull
     public abstract R apply(@Nonnull T input);
 
+    @Lazy
     @Nonnull
     public <S> Function<T, S> andThen(@Nonnull final Function<R, S> f) {
         return new Function<T, S>() {
@@ -17,6 +22,7 @@ public abstract class Function<T, R> {
         };
     }
 
+    @Lazy
     @Nonnull
     public <S> Function<S, R> compose(@Nonnull final Function<S, T> f) {
         return new Function<S, R>() {
@@ -28,6 +34,7 @@ public abstract class Function<T, R> {
         };
     }
 
+    @Lazy
     @Nonnull
     public MemoizedFunction<T, R> memoize() {
         return new MemoizedFunction<>(this);

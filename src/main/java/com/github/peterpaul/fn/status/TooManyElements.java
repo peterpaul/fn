@@ -18,13 +18,14 @@ public final class TooManyElements<T> {
         return items;
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return "TooManyElements(" + items + ')';
     }
 
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public boolean equals(Object o) {
         return Equals.equals(this, o, new Equals.EqualsChecker<TooManyElements<T>>() {
             @Override

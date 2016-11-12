@@ -1,5 +1,7 @@
 package com.github.peterpaul.fn;
 
+import com.github.peterpaul.fn.annotations.Eager;
+
 import javax.annotation.Nonnull;
 
 public class CacheSupplier<T> extends Supplier<T> implements Registerable, Flushable {
@@ -12,6 +14,7 @@ public class CacheSupplier<T> extends Supplier<T> implements Registerable, Flush
         broadcaster = new Broadcaster();
     }
 
+    @Eager
     @Nonnull
     @Override
     public T get() {
@@ -26,7 +29,6 @@ public class CacheSupplier<T> extends Supplier<T> implements Registerable, Flush
         }
         return result;
     }
-
 
     @Override
     public void register(@Nonnull Runner runner) {
