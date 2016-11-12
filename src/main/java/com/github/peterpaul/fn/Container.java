@@ -1,7 +1,6 @@
 package com.github.peterpaul.fn;
 
 import javax.annotation.Nonnull;
-import java.util.function.*;
 
 public class Container<T> extends Supplier<Option<T>> {
     private T value;
