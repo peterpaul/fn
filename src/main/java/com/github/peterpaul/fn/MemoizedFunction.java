@@ -13,7 +13,7 @@ public class MemoizedFunction<T, R> extends Function<T, R> implements Registerab
     private final Function<T, R> functionToMemoize;
     private final LinkedHashMap<T, R> memo;
 
-    private MemoizedFunction(@Nonnull Function<T, R> functionToMemoize) {
+    MemoizedFunction(@Nonnull Function<T, R> functionToMemoize) {
         this.functionToMemoize = functionToMemoize;
         this.broadcaster = new Broadcaster();
         this.memo = new LinkedHashMap<>();

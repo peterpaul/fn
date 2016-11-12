@@ -190,7 +190,7 @@ public class StreamTest {
                 some(3),
                 Option.<Integer>none(),
                 Option.<Integer>none())
-                .filterMap(Function.<Option<Integer>>identity())
+                .filterMap(Functions.<Option<Integer>>identity())
                 .to(new ArrayList<Integer>());
         assertThat(actual, contains(1, 2, 3));
     }
