@@ -10,18 +10,6 @@ public abstract class Supplier<T> {
     @Nonnull
     public abstract T get();
 
-    @Eager
-    @Nonnull
-    public static <T> Supplier<T> eager(@Nonnull final T item) {
-        return new Supplier<T>() {
-            @Nonnull
-            @Override
-            public T get() {
-                return item;
-            }
-        };
-    }
-
     @Lazy
     @Nonnull
     public CacheSupplier<T> cache() {

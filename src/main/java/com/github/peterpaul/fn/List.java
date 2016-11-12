@@ -12,7 +12,7 @@ public abstract class List<T> implements Recitable<T> {
 
     @Nonnull
     public static <T> Cons<T> cons(@Nonnull T head, @Nonnull List<T> tail) {
-        return new Cons<>(Supplier.eager(head), tail);
+        return new Cons<>(Suppliers.of(head), tail);
     }
 
     @Nonnull
