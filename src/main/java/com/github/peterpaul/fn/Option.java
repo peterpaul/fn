@@ -77,6 +77,11 @@ public abstract class Option<T> implements Recitable<T> {
         return this;
     }
 
+    @Nonnull
+    public void consumeOr(@Nonnull Consumer<? super T> consumer, @Nonnull Runner runner) {
+        runner.run();
+    }
+
     public boolean isPresent() {
         return false;
     }
@@ -155,6 +160,12 @@ public abstract class Option<T> implements Recitable<T> {
         public Option<T> peek(@Nonnull Consumer<? super T> consumer) {
             consumer.consume(value);
             return this;
+        }
+
+        @Nonnull
+        @Override
+        public void consumeOr(@Nonnull Consumer<? super T> consumer, @Nonnull Runner runner) {
+            consumer.consume(value);
         }
 
         @Override
