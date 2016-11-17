@@ -1,4 +1,4 @@
-group 'com.github.peterpaul'
+group 'net.kleinhaneveld.fn'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
