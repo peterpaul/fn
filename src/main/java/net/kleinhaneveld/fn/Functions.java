@@ -16,12 +16,24 @@ public class Functions {
 
     @Lazy
     @Nonnull
-    public static <T, R> Function<T, Option<R>> mapper(@Nonnull final Map<T, R> map) {
+    public static <T, R> Function<T, Option<R>> getFrom(@Nonnull final Map<T, R> map) {
         return new Function<T, Option<R>>() {
             @Nonnull
             @Override
             public Option<R> apply(@Nonnull T input) {
                 return Option.of(map.get(input));
+            }
+        };
+    }
+
+    @Lazy
+    @Nonnull
+    public static <T, R> Function<T, Option<R>> getAndRemoveFrom(@Nonnull final Map<T, R> map) {
+        return new Function<T, Option<R>>() {
+            @Nonnull
+            @Override
+            public Option<R> apply(@Nonnull T input) {
+                return Option.of(map.remove(input));
             }
         };
     }
