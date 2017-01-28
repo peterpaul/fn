@@ -2,7 +2,7 @@ package net.kleinhaneveld.fn;
 
 import net.kleinhaneveld.fn.annotations.Eager;
 import net.kleinhaneveld.fn.annotations.Lazy;
-import net.kleinhaneveld.fn.iterators.IterIterator;
+import net.kleinhaneveld.fn.iterators.ReciterIterator;
 
 import javax.annotation.Nonnull;
 import java.util.Iterator;
@@ -16,6 +16,6 @@ public abstract class Reciter<T> implements Iterable<T> {
     @Nonnull
     @Override
     public Iterator<T> iterator() {
-        return new IterIterator<>(this);
+        return new ReciterIterator<>(this);
     }
 }
