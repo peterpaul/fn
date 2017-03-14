@@ -11,7 +11,7 @@ public abstract class Validations {
         return item;
     }
 
-    public static <T> T notNull(@CheckForNull T item, @Nonnull String message, @Nonnull String... args) {
+    public static <T> T notNull(@CheckForNull T item, @Nonnull String message, @Nonnull Object... args) {
         if (item == null) {
             throw new NullPointerException(String.format(message, args));
         }
