@@ -9,25 +9,6 @@ apply plugin: 'signing'
 archivesBaseName = 'fn'
 sourceCompatibility = 1.7
 
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
-
-task sourcesJar(type: Jar) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives javadocJar, sourcesJar
-}
-
-
-signing {
-    sign configurations.archives
-}
-
 repositories {
     mavenLocal()
     mavenCentral()
@@ -50,7 +31,9 @@ uploadArchives {
         mavenLocal()
 
         mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+            beforeDeployment {
+                MavenDeployment deployment -> signing.signPom(deployment)
+            }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
                 authentication(userName: ossrhUsername, password: ossrhPassword)
@@ -87,5 +70,26 @@ uploadArchives {
                 }
             }
         }
+    }
+
+    signing {
+        required {
+            gradle.taskGraph.hasTask("uploadArchives")
+        }
+        sign configurations.archives
+    }
+
+    task javadocJar(type: Jar) {
+        classifier = 'javadoc'
+        from javadoc
+    }
+
+    task sourcesJar(type: Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    artifacts {
+        archives javadocJar, sourcesJar
     }
 }
