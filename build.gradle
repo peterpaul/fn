@@ -29,67 +29,73 @@ dependencies {
 uploadArchives {
     repositories {
         mavenLocal()
+    }
+}
 
-        mavenDeployer {
-            beforeDeployment {
-                MavenDeployment deployment -> signing.signPom(deployment)
-            }
+if (project.hasProperty('fn.deployment.enabled')) {
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment {
+                    MavenDeployment deployment -> signing.signPom(deployment)
+                }
 
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
 
-            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: ossrhUsername, password: ossrhPassword)
-            }
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
 
-            pom.project {
-                name 'Functional Programming Utilities for Java 7'
-                packaging 'jar'
-                url 'https://github.com/peterpaul/fn'
-
-                scm {
-                    connection 'scm:git:https://github.com/peterpaul/fn.git'
-                    developerConnection 'scm:git:https://github.com/peterpaul/fn.git'
+                pom.project {
+                    name 'Functional Programming Utilities for Java 7'
+                    packaging 'jar'
                     url 'https://github.com/peterpaul/fn'
-                }
 
-                licenses {
-                    license {
-                        name 'MIT License'
-                        url 'https://opensource.org/licenses/MIT'
+                    scm {
+                        connection 'scm:git:https://github.com/peterpaul/fn.git'
+                        developerConnection 'scm:git:https://github.com/peterpaul/fn.git'
+                        url 'https://github.com/peterpaul/fn'
                     }
-                }
 
-                developers {
-                    developer {
-                        id 'peterpaul'
-                        name 'Peterpaul Taekele Klein Haneveld'
-                        email 'pp.kleinhaneveld@gmail.com'
+                    licenses {
+                        license {
+                            name 'MIT License'
+                            url 'https://opensource.org/licenses/MIT'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'peterpaul'
+                            name 'Peterpaul Taekele Klein Haneveld'
+                            email 'pp.kleinhaneveld@gmail.com'
+                        }
                     }
                 }
             }
         }
-    }
 
-    signing {
-        required {
-            gradle.taskGraph.hasTask("uploadArchives")
+        signing {
+            required {
+                gradle.taskGraph.hasTask("uploadArchives")
+            }
+            sign configurations.archives
         }
-        sign configurations.archives
-    }
 
-    task javadocJar(type: Jar) {
-        classifier = 'javadoc'
-        from javadoc
-    }
+        task javadocJar(type: Jar) {
+            classifier = 'javadoc'
+            from javadoc
+        }
 
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
+        task sourcesJar(type: Jar) {
+            classifier = 'sources'
+            from sourceSets.main.allSource
+        }
 
-    artifacts {
-        archives javadocJar, sourcesJar
+        artifacts {
+            archives javadocJar, sourcesJar
+        }
     }
 }
