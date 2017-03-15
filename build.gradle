@@ -50,6 +50,7 @@ if (project.hasProperty('fn.deployment.enabled')) {
 
                 pom.project {
                     name 'Functional Programming Utilities for Java 7'
+                    description 'Functional Programming Utilities for Java 7'
                     packaging 'jar'
                     url 'https://github.com/peterpaul/fn'
 
