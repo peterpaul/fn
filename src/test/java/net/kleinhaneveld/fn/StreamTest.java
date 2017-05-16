@@ -1,6 +1,6 @@
 package net.kleinhaneveld.fn;
 
-import net.kleinhaneveld.fn.recitables.IterableRecitable;
+import net.kleinhaneveld.fn.enumerable.IterableEnumerable;
 import net.kleinhaneveld.fn.status.UniquenessErrorStatus;
 import org.hamcrest.Matchers;
 import org.junit.Test;
@@ -37,11 +37,11 @@ public class StreamTest {
     public void testFlatMap() {
         java.util.List<Integer> actual =
                 stream(Arrays.asList(1, 2, 3), Collections.singleton(4), Collections.<Integer>emptySet(), Arrays.asList(5, 6))
-                        .flatMap(new Function<Collection<Integer>, Recitable<Integer>>() {
+                        .flatMap(new Function<Collection<Integer>, Enumerable<Integer>>() {
                             @Nonnull
                             @Override
-                            public Recitable<Integer> apply(@Nonnull Collection<Integer> input) {
-                                return new IterableRecitable<>(input);
+                            public Enumerable<Integer> apply(@Nonnull Collection<Integer> input) {
+                                return new IterableEnumerable<>(input);
                             }
                         })
                         .map(new Function<Integer, Integer>() {

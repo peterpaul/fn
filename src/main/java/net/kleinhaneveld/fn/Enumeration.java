@@ -7,10 +7,10 @@ import net.kleinhaneveld.fn.iterators.ReciterIterator;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
 
-public abstract class Reciter<T> implements Iterable<T> {
+public abstract class Enumeration<T> implements Iterable<T> {
     @Eager
     @Nonnull
-    public abstract Option<T> get();
+    public abstract Option<T> next();
 
     @Lazy
     @Nonnull

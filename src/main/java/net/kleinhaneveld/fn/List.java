@@ -1,10 +1,10 @@
 package net.kleinhaneveld.fn;
 
-import net.kleinhaneveld.fn.reciters.ListReciter;
+import net.kleinhaneveld.fn.enumerations.ListEnumeration;
 
 import javax.annotation.Nonnull;
 
-public abstract class List<T> implements Recitable<T> {
+public abstract class List<T> implements Enumerable<T> {
     @Nonnull
     public static <T> Cons<T> cons(@Nonnull Supplier<T> head, @Nonnull List<T> tail) {
         return new Cons<>(head, tail);
@@ -32,8 +32,8 @@ public abstract class List<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> reciter() {
-        return new ListReciter<>(this);
+    public Enumeration<T> enumerate() {
+        return new ListEnumeration<>(this);
     }
 
     @Nonnull

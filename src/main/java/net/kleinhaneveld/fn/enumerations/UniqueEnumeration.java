@@ -1,33 +1,33 @@
-package net.kleinhaneveld.fn.reciters;
+package net.kleinhaneveld.fn.enumerations;
 
+import net.kleinhaneveld.fn.Enumeration;
 import net.kleinhaneveld.fn.Option;
-import net.kleinhaneveld.fn.Reciter;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UniqueReciter<T> extends Reciter<T> {
-    private final Reciter<T> reciter;
+public class UniqueEnumeration<T> extends Enumeration<T> {
+    private final Enumeration<T> enumeration;
     private final Set<T> previousItems;
 
-    public UniqueReciter(Reciter<T> reciter) {
+    public UniqueEnumeration(Enumeration<T> enumeration) {
         super();
-        this.reciter = reciter;
+        this.enumeration = enumeration;
         this.previousItems = new HashSet<>();
     }
 
     @Nonnull
     @Override
-    public Option<T> get() {
-        Option<T> option = reciter.get();
+    public Option<T> next() {
+        Option<T> option = enumeration.next();
         while (option.isPresent()) {
             T item = option.get();
             if (!previousItems.contains(item)) {
                 previousItems.add(item);
                 return option;
             } else {
-                option = reciter.get();
+                option = enumeration.next();
             }
         }
         return option;

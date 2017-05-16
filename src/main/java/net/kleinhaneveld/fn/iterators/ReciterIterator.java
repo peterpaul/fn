@@ -1,17 +1,17 @@
 package net.kleinhaneveld.fn.iterators;
 
+import net.kleinhaneveld.fn.Enumeration;
 import net.kleinhaneveld.fn.Option;
-import net.kleinhaneveld.fn.Reciter;
 
 import javax.annotation.Nonnull;
 
 public class ReciterIterator<T> extends BaseIterator<T> {
-    private final Reciter<T> tail;
+    private final Enumeration<T> tail;
     private Option<T> head;
 
-    public ReciterIterator(@Nonnull Reciter<T> reciter) {
-        this.tail = reciter;
-        this.head = tail.get();
+    public ReciterIterator(@Nonnull Enumeration<T> enumeration) {
+        this.tail = enumeration;
+        this.head = tail.next();
     }
 
     @Override
@@ -23,7 +23,7 @@ public class ReciterIterator<T> extends BaseIterator<T> {
     @Override
     public T getNext() {
         T result = head.get();
-        head = tail.get();
+        head = tail.next();
         return result;
     }
 }

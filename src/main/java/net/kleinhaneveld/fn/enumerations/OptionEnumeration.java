@@ -1,20 +1,20 @@
-package net.kleinhaneveld.fn.reciters;
+package net.kleinhaneveld.fn.enumerations;
 
+import net.kleinhaneveld.fn.Enumeration;
 import net.kleinhaneveld.fn.Option;
-import net.kleinhaneveld.fn.Reciter;
 
 import javax.annotation.Nonnull;
 
-public class OptionReciter<T> extends Reciter<T> {
+public class OptionEnumeration<T> extends Enumeration<T> {
     private Option<T> item;
 
-    public OptionReciter(@Nonnull Option<T> item) {
+    public OptionEnumeration(@Nonnull Option<T> item) {
         this.item = item;
     }
 
     @Nonnull
     @Override
-    public Option<T> get() {
+    public Option<T> next() {
         if (item.isPresent()) {
             Option<T> out = item;
             item = Option.none();

@@ -1,21 +1,21 @@
-package net.kleinhaneveld.fn.reciters;
+package net.kleinhaneveld.fn.enumerations;
 
+import net.kleinhaneveld.fn.Enumeration;
 import net.kleinhaneveld.fn.List;
 import net.kleinhaneveld.fn.Option;
-import net.kleinhaneveld.fn.Reciter;
 
 import javax.annotation.Nonnull;
 
-public class ListReciter<T> extends Reciter<T> {
+public class ListEnumeration<T> extends Enumeration<T> {
     private List<T> tail;
 
-    public ListReciter(@Nonnull List<T> in) {
+    public ListEnumeration(@Nonnull List<T> in) {
         this.tail = in;
     }
 
     @Nonnull
     @Override
-    public Option<T> get() {
+    public Option<T> next() {
         if (tail.isNil()) {
             return Option.none();
         } else {

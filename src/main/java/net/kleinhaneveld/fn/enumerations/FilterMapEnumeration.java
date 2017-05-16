@@ -1,27 +1,27 @@
-package net.kleinhaneveld.fn.reciters;
+package net.kleinhaneveld.fn.enumerations;
 
+import net.kleinhaneveld.fn.Enumeration;
 import net.kleinhaneveld.fn.Function;
 import net.kleinhaneveld.fn.Option;
-import net.kleinhaneveld.fn.Reciter;
 
 import javax.annotation.Nonnull;
 
-public class FilterMapReciter<T, R> extends Reciter<R> {
-    private final Reciter<T> in;
+public class FilterMapEnumeration<T, R> extends Enumeration<R> {
+    private final Enumeration<T> in;
     private final Function<? super T, Option<R>> filteredMapper;
 
-    public FilterMapReciter(Reciter<T> in, Function<? super T, Option<R>> filteredMapper) {
+    public FilterMapEnumeration(Enumeration<T> in, Function<? super T, Option<R>> filteredMapper) {
         this.in = in;
         this.filteredMapper = filteredMapper;
     }
 
     @Nonnull
     @Override
-    public Option<R> get() {
+    public Option<R> next() {
         Option<T> item;
         Option<R> out = Option.none();
         do {
-            item = in.get();
+            item = in.next();
             if (item.isPresent()) {
                 out = filteredMapper.apply(item.get());
             }
