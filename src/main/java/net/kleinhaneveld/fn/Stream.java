@@ -19,13 +19,13 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Nonnull
     public static <T> Stream<T> stream(@Nonnull Iterable<T> in) {
-        return new Stream<>(new IterableRecitable<>(in));
+        return stream(new IterableRecitable<>(in));
     }
 
     @Nonnull
     @SafeVarargs
     public static <T> Stream<T> stream(@Nonnull T... items) {
-        return new Stream<>(new ArrayRecitable<>(items));
+        return stream(new ArrayRecitable<>(items));
     }
 
     @Nonnull
@@ -48,55 +48,55 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     @Lazy
     @Nonnull
     public <R> Stream<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
-        return new Stream<>(new MappedRecitable<>(stream, mapper));
+        return stream(new MappedRecitable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
     public <R> Stream<R> flatMap(@Nonnull Function<? super T, ? extends Recitable<R>> mapper) {
-        return new Stream<>(new FlatmappedRecitable<>(stream, mapper));
+        return stream(new FlatmappedRecitable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> filter(@Nonnull Predicate<? super T> filter) {
-        return new Stream<>(new FilteredRecitable<>(stream, filter));
+        return stream(new FilteredRecitable<>(stream, filter));
     }
 
     @Lazy
     @Nonnull
     public <R>  Stream<R> filterMap(@Nonnull Function<? super T, Option<R>> filteredMapper){
-        return new Stream<>(new FilterMapRecitable<>(stream, filteredMapper));
+        return stream(new FilterMapRecitable<>(stream, filteredMapper));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> peek(@Nonnull Consumer<? super T> consumer) {
-        return new Stream<>(new PeekRecitable<>(stream, consumer));
+        return stream(new PeekRecitable<>(stream, consumer));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> drop(int n) {
-        return new Stream<>(new DropRecitable<>(stream, n));
+        return stream(new DropRecitable<>(stream, n));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> take(int n) {
-        return new Stream<>(new TakeRecitable<>(stream, n));
+        return stream(new TakeRecitable<>(stream, n));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> uniqueStream() {
-        return new Stream<>(new UniqueRecitable<>(stream));
+        return stream(new UniqueRecitable<>(stream));
     }
 
     @Lazy
     @Nonnull
     public <S> Stream<Pair<T, S>> zip(Recitable<S> others) {
-        return new Stream<>(new ZipRecitable<>(stream, others));
+        return stream(new ZipRecitable<>(stream, others));
     }
 
     @Eager

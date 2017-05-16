@@ -2,6 +2,8 @@ package net.kleinhaneveld.fn;
 
 import javax.annotation.Nonnull;
 
+import static net.kleinhaneveld.fn.Option.of;
+
 public class Container<T> extends Supplier<Option<T>> {
     private T value;
 
@@ -16,7 +18,7 @@ public class Container<T> extends Supplier<Option<T>> {
     @Nonnull
     @Override
     public Option<T> get() {
-        return Option.of(value);
+        return of(value);
     }
 
     @Override

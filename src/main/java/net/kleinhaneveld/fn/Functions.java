@@ -5,6 +5,8 @@ import net.kleinhaneveld.fn.annotations.Lazy;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
+import static net.kleinhaneveld.fn.Option.of;
+
 public class Functions {
     public static final Function<Object, String> TO_STRING = new Function<Object, String>() {
         @Nonnull
@@ -21,7 +23,7 @@ public class Functions {
             @Nonnull
             @Override
             public Option<R> apply(@Nonnull T input) {
-                return Option.of(map.get(input));
+                return of(map.get(input));
             }
         };
     }
@@ -33,7 +35,7 @@ public class Functions {
             @Nonnull
             @Override
             public Option<R> apply(@Nonnull T input) {
-                return Option.of(map.remove(input));
+                return of(map.remove(input));
             }
         };
     }

@@ -4,13 +4,13 @@ import net.kleinhaneveld.fn.equals.Equals;
 import net.kleinhaneveld.fn.reciters.OptionReciter;
 import net.kleinhaneveld.fn.validations.Validations;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Objects;
 
 public abstract class Option<T> implements Recitable<T> {
     @Nonnull
-    public static <T> Option<T> of(@CheckForNull T item) {
+    public static <T> Option<T> of(@Nullable T item) {
         if (item == null) {
             return none();
         } else {
@@ -56,20 +56,22 @@ public abstract class Option<T> implements Recitable<T> {
 
     @Nonnull
     public <R> Option<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
-        return Option.none();
+        return none();
     }
 
     @Nonnull
-    public abstract <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier);
+    public <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier) {
+        return supplier.get();
+    }
 
     @Nonnull
     public <R> Option<R> flatMap(@Nonnull Function<T, Option<R>> mapper) {
-        return Option.none();
+        return none();
     }
 
     @Nonnull
     public Option<T> filter(@Nonnull Predicate<T> predicate) {
-        return Option.none();
+        return none();
     }
 
     @Nonnull
@@ -131,7 +133,7 @@ public abstract class Option<T> implements Recitable<T> {
         @Nonnull
         @Override
         public <R> Option<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
-            return Option.of(mapper.apply(value));
+            return of(mapper.apply(value));
         }
 
         @Nonnull
@@ -201,12 +203,6 @@ public abstract class Option<T> implements Recitable<T> {
         @Override
         public String toString() {
             return "none";
-        }
-
-        @Nonnull
-        @Override
-        public <R> R map(@Nonnull Function<? super T, ? extends R> mapper, @Nonnull Supplier<? extends R> supplier) {
-            return supplier.get();
         }
     }
 }
