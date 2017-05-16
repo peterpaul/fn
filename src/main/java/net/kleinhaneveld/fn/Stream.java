@@ -89,6 +89,12 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Lazy
     @Nonnull
+    public Stream<T> uniqueStream() {
+        return new Stream<>(new UniqueRecitable<>(stream));
+    }
+
+    @Lazy
+    @Nonnull
     public <S> Stream<Pair<T, S>> zip(Recitable<S> others) {
         return new Stream<>(new ZipRecitable<>(stream, others));
     }

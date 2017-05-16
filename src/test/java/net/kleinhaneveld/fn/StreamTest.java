@@ -194,4 +194,12 @@ public class StreamTest {
                 .to(new ArrayList<Integer>());
         assertThat(actual, contains(1, 2, 3));
     }
+
+    @Test
+    public void testUniqueStream() {
+        List<Integer> actual = Stream.stream(1, 1, 1, 2, 2, 3, 1, 2, 1, 2, 3, 4)
+                .uniqueStream()
+                .to(new ArrayList<Integer>());
+        assertThat(actual, contains(1, 2, 3, 4));
+    }
 }
