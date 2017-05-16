@@ -1,14 +1,14 @@
 package net.kleinhaneveld.fn;
 
+import net.kleinhaneveld.fn.enumerations.OptionEnumeration;
 import net.kleinhaneveld.fn.equals.Equals;
-import net.kleinhaneveld.fn.reciters.OptionReciter;
 import net.kleinhaneveld.fn.validations.Validations;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Objects;
 
-public abstract class Option<T> implements Recitable<T> {
+public abstract class Option<T> implements Enumerable<T> {
     @Nonnull
     public static <T> Option<T> of(@Nullable T item) {
         if (item == null) {
@@ -89,8 +89,8 @@ public abstract class Option<T> implements Recitable<T> {
 
     @Nonnull
     @Override
-    public Reciter<T> reciter() {
-        return new OptionReciter<>(this);
+    public Enumeration<T> enumerate() {
+        return new OptionEnumeration<>(this);
     }
 
     private static final class Some<T> extends Option<T> {

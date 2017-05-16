@@ -2,7 +2,7 @@ package net.kleinhaneveld.fn;
 
 import net.kleinhaneveld.fn.annotations.Eager;
 import net.kleinhaneveld.fn.annotations.Lazy;
-import net.kleinhaneveld.fn.recitables.*;
+import net.kleinhaneveld.fn.enumerable.*;
 import net.kleinhaneveld.fn.status.UniquenessErrorStatus;
 
 import javax.annotation.Nonnull;
@@ -10,93 +10,93 @@ import java.util.*;
 
 import static net.kleinhaneveld.fn.status.UniquenessErrorStatus.tooManyElements;
 
-public class Stream<T> implements Recitable<T>, Iterable<T> {
-    private final Recitable<T> stream;
+public class Stream<T> implements Enumerable<T>, Iterable<T> {
+    private final Enumerable<T> stream;
 
-    private Stream(@Nonnull Recitable<T> stream) {
+    private Stream(@Nonnull Enumerable<T> stream) {
         this.stream = stream;
     }
 
     @Nonnull
     public static <T> Stream<T> stream(@Nonnull Iterable<T> in) {
-        return stream(new IterableRecitable<>(in));
+        return stream(new IterableEnumerable<>(in));
     }
 
     @Nonnull
     @SafeVarargs
     public static <T> Stream<T> stream(@Nonnull T... items) {
-        return stream(new ArrayRecitable<>(items));
+        return stream(new ArrayEnumerable<>(items));
     }
 
     @Nonnull
-    public static <T> Stream<T> stream(@Nonnull Recitable<T> in) {
+    public static <T> Stream<T> stream(@Nonnull Enumerable<T> in) {
         return new Stream<>(in);
     }
 
     @Nonnull
     @Override
-    public Reciter<T> reciter() {
-        return stream.reciter();
+    public Enumeration<T> enumerate() {
+        return stream.enumerate();
     }
 
     @Nonnull
     @Override
     public Iterator<T> iterator() {
-        return reciter().iterator();
+        return enumerate().iterator();
     }
 
     @Lazy
     @Nonnull
     public <R> Stream<R> map(@Nonnull Function<? super T, ? extends R> mapper) {
-        return stream(new MappedRecitable<>(stream, mapper));
+        return stream(new MappedEnumerable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
-    public <R> Stream<R> flatMap(@Nonnull Function<? super T, ? extends Recitable<R>> mapper) {
-        return stream(new FlatmappedRecitable<>(stream, mapper));
+    public <R> Stream<R> flatMap(@Nonnull Function<? super T, ? extends Enumerable<R>> mapper) {
+        return stream(new FlatmappedEnumerable<>(stream, mapper));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> filter(@Nonnull Predicate<? super T> filter) {
-        return stream(new FilteredRecitable<>(stream, filter));
+        return stream(new FilteredEnumerable<>(stream, filter));
     }
 
     @Lazy
     @Nonnull
     public <R>  Stream<R> filterMap(@Nonnull Function<? super T, Option<R>> filteredMapper){
-        return stream(new FilterMapRecitable<>(stream, filteredMapper));
+        return stream(new FilterMapEnumerable<>(stream, filteredMapper));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> peek(@Nonnull Consumer<? super T> consumer) {
-        return stream(new PeekRecitable<>(stream, consumer));
+        return stream(new PeekEnumerable<>(stream, consumer));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> drop(int n) {
-        return stream(new DropRecitable<>(stream, n));
+        return stream(new DropEnumerable<>(stream, n));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> take(int n) {
-        return stream(new TakeRecitable<>(stream, n));
+        return stream(new TakeEnumerable<>(stream, n));
     }
 
     @Lazy
     @Nonnull
     public Stream<T> uniqueStream() {
-        return stream(new UniqueRecitable<>(stream));
+        return stream(new UniqueEnumerable<>(stream));
     }
 
     @Lazy
     @Nonnull
-    public <S> Stream<Pair<T, S>> zip(Recitable<S> others) {
-        return stream(new ZipRecitable<>(stream, others));
+    public <S> Stream<Pair<T, S>> zip(Enumerable<S> others) {
+        return stream(new ZipEnumerable<>(stream, others));
     }
 
     @Eager
@@ -165,7 +165,7 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
 
     @Eager
     boolean isEmpty() {
-        return !reciter().iterator().hasNext();
+        return !enumerate().iterator().hasNext();
     }
 
     @Eager
@@ -184,6 +184,6 @@ public class Stream<T> implements Recitable<T>, Iterable<T> {
     @Eager
     @Nonnull
     public Option<T> first() {
-        return reciter().get();
+        return enumerate().next();
     }
 }

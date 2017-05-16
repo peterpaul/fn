@@ -5,7 +5,7 @@ import net.kleinhaneveld.fn.equals.Equals;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class IntegerRange implements Recitable<Integer> {
+public class IntegerRange implements Enumerable<Integer> {
     private final int from;
     private final int to;
 
@@ -65,22 +65,22 @@ public class IntegerRange implements Recitable<Integer> {
 
     @Nonnull
     @Override
-    public Reciter<Integer> reciter() {
-        return new IntegerRangeReciter(from, to);
+    public Enumeration<Integer> enumerate() {
+        return new IntegerRangeEnumeration(from, to);
     }
 
-    public static final class IntegerRangeReciter extends Reciter<Integer> {
+    public static final class IntegerRangeEnumeration extends Enumeration<Integer> {
         private final int to;
         private int current;
 
-        public IntegerRangeReciter(int from, int to) {
+        public IntegerRangeEnumeration(int from, int to) {
             this.current = from;
             this.to = to;
         }
 
         @Nonnull
         @Override
-        public Option<Integer> get() {
+        public Option<Integer> next() {
             return current < to
                     ? Option.some(current++)
                     : Option.<Integer>none();
